@@ -67,7 +67,7 @@ export class TrackService {
 			text,
 			excerpt,
 			images,
-			date,
+			date: new Date(date),
 			likes,
 			lat,
 			lng,

@@ -57,7 +57,7 @@ export class TrackController {
 	@Protected()
 	@Get('/find-by-user/:id')
 	@HttpCode(HttpStatus.OK)
-	public async findByUser(@Param() userId: string) {
+	public async findByUser(@Param('id') userId: string) {
 		return this.trackService.findByUser(userId)
 	}
 
