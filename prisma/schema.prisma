@@ -1,0 +1,94 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "./generated"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Account {
+  id String @unique @default(nanoid())
+
+  email    String @unique
+  password String
+
+  name   String
+  avatar String @default("images/default-profile.png")
+  bio    String
+
+  notificationNewComments         Boolean @default(true) @map("notification_new_comments")
+  notificationLikes               Boolean @default(true) @map("notification_likes")
+  notificationNewTrackInFavorites Boolean @default(false) @map("notification_new_track_in_favorites")
+
+  tracks    Track[]
+  comments  Comment[]
+  favorites Favorite[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("accounts")
+}
+
+model Favorite {
+  id String @unique @default(nanoid())
+
+  account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  accountId String  @map("account_id")
+
+  track   Track  @relation(fields: [trackId], references: [id], onDelete: Cascade)
+  trackId String @map("track_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("favorites")
+}
+
+model Track {
+  id String @unique @default(nanoid())
+
+  title String @unique
+
+  region     String
+  tags       String[]
+  text       String
+  excerpt    String
+  images     String[]
+  date       DateTime
+  likes      String
+  lat        String
+  lng        String
+  duration   String
+  difficulty String
+
+  account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  accountId String  @map("account_id")
+
+  comments  Comment[]
+  favorites Favorite[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("tracks")
+}
+
+model Comment {
+  id String @unique @default(nanoid())
+
+  text String
+
+  account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  accountId String  @map("account_id")
+
+  track   Track  @relation(fields: [trackId], references: [id], onDelete: Cascade)
+  trackId String @map("track_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("comments")
+}

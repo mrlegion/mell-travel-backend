@@ -1,0 +1,85 @@
+import {
+	Body,
+	Controller,
+	HttpCode,
+	HttpStatus,
+	Post,
+	Res
+} from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
+import { ApiOperation } from '@nestjs/swagger'
+import type { Response } from 'express'
+
+import { AuthService } from './auth.service'
+import { LoginRequest } from './dto/login.request'
+import { RefreshRequest } from './dto/refresh.request'
+import { RegisterRequest } from './dto/register.request'
+
+@Controller('auth')
+export class AuthController {
+	constructor(
+		private readonly authService: AuthService,
+		private readonly config: ConfigService
+	) {}
+
+	// ============================================================
+	//   Вход в систему
+	// ============================================================
+	@ApiOperation({
+		summary: 'Вход в систему',
+		description: 'Вход в систему'
+	})
+	@Post('login')
+	@HttpCode(HttpStatus.OK)
+	public async login(
+		@Body() data: LoginRequest,
+		@Res({ passthrough: true }) res: Response
+	) {
+		return this.authService.login(data, res)
+	}
+
+	// ============================================================
+	//   Регистрация в системе
+	// ============================================================
+	@ApiOperation({
+		summary: 'Регистрация в системе',
+		description: 'Регистрация в системе'
+	})
+	@Post('register')
+	@HttpCode(HttpStatus.OK)
+	public async register(
+		@Body() data: RegisterRequest,
+		@Res({ passthrough: true }) res: Response
+	) {
+		return this.authService.register(data, res)
+	}
+
+	// ============================================================
+	//   Обновление токена доступа
+	// ============================================================
+	@ApiOperation({
+		summary: 'Обновление токена доступа',
+		description: 'Обновление токена доступа'
+	})
+	@Post('refresh')
+	@HttpCode(HttpStatus.OK)
+	public async refresh(
+		@Body() data: RefreshRequest,
+		@Res({ passthrough: true }) res: Response
+	) {
+		return this.authService.refresh(data, res)
+	}
+
+	// ============================================================
+	//   Выход из системы
+	// ============================================================
+	@ApiOperation({
+		summary: 'Выход из системы',
+		description: 'Выход из системы'
+	})
+	@Post('logout')
+	@HttpCode(HttpStatus.OK)
+	public async logout(@Res({ passthrough: true }) res: Response) {
+		return this.authService.logout(res)
+	}
+}

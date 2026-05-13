@@ -1,0 +1,20 @@
+services:
+  database:
+    container_name: database_postgres
+    image: postgres:17.7-bookworm
+    restart: always
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - pg_data:/var/lib/postresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - mt_net
+
+volumes:
+  pg_data: {}
+
+networks:
+  mt_net:
