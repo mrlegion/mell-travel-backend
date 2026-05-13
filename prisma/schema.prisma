@@ -79,7 +79,8 @@ model Track {
 model Comment {
   id String @unique @default(nanoid())
 
-  text String
+  author String
+  text   String
 
   account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
   accountId String  @map("account_id")

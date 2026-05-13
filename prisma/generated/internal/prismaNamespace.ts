@@ -794,6 +794,7 @@ export type TrackScalarFieldEnum = (typeof TrackScalarFieldEnum)[keyof typeof Tr
 
 export const CommentScalarFieldEnum = {
   id: 'id',
+  author: 'author',
   text: 'text',
   accountId: 'accountId',
   trackId: 'trackId',
