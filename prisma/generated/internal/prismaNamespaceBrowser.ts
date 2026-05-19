@@ -53,6 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   Account: 'Account',
   Favorite: 'Favorite',
+  Like: 'Like',
   Track: 'Track',
   Comment: 'Comment'
 } as const
@@ -99,6 +100,16 @@ export const FavoriteScalarFieldEnum = {
 } as const
 
 export type FavoriteScalarFieldEnum = (typeof FavoriteScalarFieldEnum)[keyof typeof FavoriteScalarFieldEnum]
+
+
+export const LikeScalarFieldEnum = {
+  id: 'id',
+  accountId: 'accountId',
+  trackId: 'trackId',
+  createdAt: 'createdAt'
+} as const
+
+export type LikeScalarFieldEnum = (typeof LikeScalarFieldEnum)[keyof typeof LikeScalarFieldEnum]
 
 
 export const TrackScalarFieldEnum = {

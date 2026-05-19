@@ -10,6 +10,7 @@
  */
 export type * from './models/Account.js'
 export type * from './models/Favorite.js'
+export type * from './models/Like.js'
 export type * from './models/Track.js'
 export type * from './models/Comment.js'
 export type * from './commonInputTypes.js'

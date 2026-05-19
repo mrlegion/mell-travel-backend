@@ -50,6 +50,11 @@ export type Account = Prisma.AccountModel
  */
 export type Favorite = Prisma.FavoriteModel
 /**
+ * Model Like
+ * 
+ */
+export type Like = Prisma.LikeModel
+/**
  * Model Track
  * 
  */

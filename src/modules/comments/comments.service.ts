@@ -44,11 +44,11 @@ export class CommentsService {
 		const user = await this.accountRepository.findById(userId)
 		if (!user) throw new NotFoundException('Пользователь не найден')
 
-		const { text, author } = data
+		const { text } = data
 
 		return this.commentRepository.create({
 			text,
-			author,
+			author: user.name,
 			account: {
 				connect: { id: user.id }
 			},

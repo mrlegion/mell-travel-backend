@@ -4,7 +4,9 @@ import {
 	Get,
 	HttpCode,
 	HttpStatus,
-	Patch
+	Param,
+	Patch,
+	Post
 } from '@nestjs/common'
 import { ApiBearerAuth, ApiExtraModels, ApiOperation } from '@nestjs/swagger'
 
@@ -26,7 +28,7 @@ export class ProfileController {
 	})
 	@ApiBearerAuth()
 	@Protected()
-	@Get('@me')
+	@Get('/')
 	@HttpCode(HttpStatus.OK)
 	public async getMe(@CurrentUser() userId: string) {
 		return this.profileService.getMe(userId)
@@ -42,12 +44,25 @@ export class ProfileController {
 	@ApiExtraModels(ProfileUpdateRequest)
 	@ApiBearerAuth()
 	@Protected()
-	@Patch('@me')
+	@Patch('/')
 	@HttpCode(HttpStatus.OK)
 	public async update(
 		@CurrentUser() userId: string,
 		@Body() data: ProfileUpdateRequest
 	) {
 		return this.profileService.update(userId, data)
+	}
+
+	// ============================================================
+	//   Получить данные пользователя по ID
+	// ============================================================
+	@ApiOperation({
+		summary: 'Получить данные пользователя по ID',
+		description: 'Получить данные пользователя по ID'
+	})
+	@Get('/by-id/:id')
+	@HttpCode(HttpStatus.OK)
+	public async getById(@Param('id') userId: string) {
+		return this.profileService.getMe(userId)
 	}
 }

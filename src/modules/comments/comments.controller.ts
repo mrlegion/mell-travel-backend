@@ -14,7 +14,6 @@ import { CurrentUser, Protected } from '../../shared/decorators'
 import { CommentsService } from './comments.service'
 import { CreateCommentRequest } from './dto/create-comment.request'
 
-
 @Controller('comments')
 export class CommentsController {
 	constructor(private readonly commentsService: CommentsService) {}
@@ -26,7 +25,7 @@ export class CommentsController {
 		summary: 'Получение списка комментариев к маршруту',
 		description: 'Получение списка комментариев к маршруту'
 	})
-	@Get('/find-by-track/:track')
+	@Get('/by-track/:track')
 	@HttpCode(HttpStatus.OK)
 	public async getOnTrack(@Param('track') trackId: string) {
 		return this.commentsService.getByTrack(trackId)
@@ -39,7 +38,7 @@ export class CommentsController {
 		summary: 'Получение списка комментариев пользователя',
 		description: 'Получение списка комментариев пользователя'
 	})
-	@Get('/find-by-user/:user')
+	@Get('/by-user/:user')
 	@HttpCode(HttpStatus.OK)
 	public async getOnUser(@Param('user') userId: string) {
 		return this.commentsService.getByUser(userId)

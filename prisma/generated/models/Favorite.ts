@@ -198,6 +198,7 @@ export type FavoriteOrderByWithRelationInput = {
 
 export type FavoriteWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  accountId_trackId?: Prisma.FavoriteAccountIdTrackIdCompoundUniqueInput
   AND?: Prisma.FavoriteWhereInput | Prisma.FavoriteWhereInput[]
   OR?: Prisma.FavoriteWhereInput[]
   NOT?: Prisma.FavoriteWhereInput | Prisma.FavoriteWhereInput[]
@@ -207,7 +208,7 @@ export type FavoriteWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"Favorite"> | Date | string
   account?: Prisma.XOR<Prisma.AccountScalarRelationFilter, Prisma.AccountWhereInput>
   track?: Prisma.XOR<Prisma.TrackScalarRelationFilter, Prisma.TrackWhereInput>
-}, "id">
+}, "id" | "accountId_trackId">
 
 export type FavoriteOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -293,6 +294,11 @@ export type FavoriteListRelationFilter = {
 
 export type FavoriteOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type FavoriteAccountIdTrackIdCompoundUniqueInput = {
+  accountId: string
+  trackId: string
 }
 
 export type FavoriteCountOrderByAggregateInput = {

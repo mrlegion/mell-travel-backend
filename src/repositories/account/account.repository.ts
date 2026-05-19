@@ -6,6 +6,7 @@ import {
 	AccountUpdateInput
 } from '../../../prisma/generated/models/Account'
 import { PrismaService } from '../../services/prisma/prisma.service'
+import { User } from '../../shared/types'
 
 @Injectable()
 export class AccountRepository {
@@ -14,18 +15,75 @@ export class AccountRepository {
 	// ============================================================
 	//   Найти по ID записи
 	// ============================================================
-	public async findById(id: string): Promise<Account | null> {
+	public async findById(id: string) {
 		return this.prisma.account.findUnique({
-			where: { id }
+			where: { id },
+			include: {
+				favorites: {
+					select: {
+						trackId: true
+					}
+				},
+				likes: {
+					select: {
+						trackId: true
+					}
+				}
+			}
 		})
 	}
 
 	// ============================================================
 	//   Найти по электронной почте
 	// ============================================================
-	public async findByEmail(email: string): Promise<Account | null> {
+	public async findByEmail(email: string) {
 		return this.prisma.account.findUnique({
-			where: { email }
+			where: { email },
+			include: {
+				tracks: {
+					select: {
+						id: true,
+						title: true,
+						region: true,
+						tags: true,
+						excerpt: true,
+						images: true,
+						likes: true,
+						account: {
+							select: {
+								id: true,
+								name: true,
+								email: true,
+								avatar: true
+							}
+						}
+					}
+				},
+				favorites: {
+					select: {
+						id: true,
+						track: {
+							select: {
+								id: true,
+								title: true,
+								region: true,
+								tags: true,
+								excerpt: true,
+								images: true,
+								likes: true,
+								account: {
+									select: {
+										id: true,
+										name: true,
+										email: true,
+										avatar: true
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		})
 	}
 

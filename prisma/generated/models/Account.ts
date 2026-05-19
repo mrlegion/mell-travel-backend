@@ -233,6 +233,7 @@ export type AccountWhereInput = {
   tracks?: Prisma.TrackListRelationFilter
   comments?: Prisma.CommentListRelationFilter
   favorites?: Prisma.FavoriteListRelationFilter
+  likes?: Prisma.LikeListRelationFilter
 }
 
 export type AccountOrderByWithRelationInput = {
@@ -250,6 +251,7 @@ export type AccountOrderByWithRelationInput = {
   tracks?: Prisma.TrackOrderByRelationAggregateInput
   comments?: Prisma.CommentOrderByRelationAggregateInput
   favorites?: Prisma.FavoriteOrderByRelationAggregateInput
+  likes?: Prisma.LikeOrderByRelationAggregateInput
 }
 
 export type AccountWhereUniqueInput = Prisma.AtLeast<{
@@ -270,6 +272,7 @@ export type AccountWhereUniqueInput = Prisma.AtLeast<{
   tracks?: Prisma.TrackListRelationFilter
   comments?: Prisma.CommentListRelationFilter
   favorites?: Prisma.FavoriteListRelationFilter
+  likes?: Prisma.LikeListRelationFilter
 }, "id" | "email">
 
 export type AccountOrderByWithAggregationInput = {
@@ -321,6 +324,7 @@ export type AccountCreateInput = {
   tracks?: Prisma.TrackCreateNestedManyWithoutAccountInput
   comments?: Prisma.CommentCreateNestedManyWithoutAccountInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutAccountInput
+  likes?: Prisma.LikeCreateNestedManyWithoutAccountInput
 }
 
 export type AccountUncheckedCreateInput = {
@@ -338,6 +342,7 @@ export type AccountUncheckedCreateInput = {
   tracks?: Prisma.TrackUncheckedCreateNestedManyWithoutAccountInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAccountInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutAccountInput
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutAccountInput
 }
 
 export type AccountUpdateInput = {
@@ -355,6 +360,7 @@ export type AccountUpdateInput = {
   tracks?: Prisma.TrackUpdateManyWithoutAccountNestedInput
   comments?: Prisma.CommentUpdateManyWithoutAccountNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutAccountNestedInput
+  likes?: Prisma.LikeUpdateManyWithoutAccountNestedInput
 }
 
 export type AccountUncheckedUpdateInput = {
@@ -372,6 +378,7 @@ export type AccountUncheckedUpdateInput = {
   tracks?: Prisma.TrackUncheckedUpdateManyWithoutAccountNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutAccountNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutAccountNestedInput
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutAccountNestedInput
 }
 
 export type AccountCreateManyInput = {
@@ -489,6 +496,20 @@ export type AccountUpdateOneRequiredWithoutFavoritesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutFavoritesInput, Prisma.AccountUpdateWithoutFavoritesInput>, Prisma.AccountUncheckedUpdateWithoutFavoritesInput>
 }
 
+export type AccountCreateNestedOneWithoutLikesInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutLikesInput, Prisma.AccountUncheckedCreateWithoutLikesInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutLikesInput
+  connect?: Prisma.AccountWhereUniqueInput
+}
+
+export type AccountUpdateOneRequiredWithoutLikesNestedInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutLikesInput, Prisma.AccountUncheckedCreateWithoutLikesInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutLikesInput
+  upsert?: Prisma.AccountUpsertWithoutLikesInput
+  connect?: Prisma.AccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutLikesInput, Prisma.AccountUpdateWithoutLikesInput>, Prisma.AccountUncheckedUpdateWithoutLikesInput>
+}
+
 export type AccountCreateNestedOneWithoutTracksInput = {
   create?: Prisma.XOR<Prisma.AccountCreateWithoutTracksInput, Prisma.AccountUncheckedCreateWithoutTracksInput>
   connectOrCreate?: Prisma.AccountCreateOrConnectWithoutTracksInput
@@ -531,6 +552,7 @@ export type AccountCreateWithoutFavoritesInput = {
   updatedAt?: Date | string
   tracks?: Prisma.TrackCreateNestedManyWithoutAccountInput
   comments?: Prisma.CommentCreateNestedManyWithoutAccountInput
+  likes?: Prisma.LikeCreateNestedManyWithoutAccountInput
 }
 
 export type AccountUncheckedCreateWithoutFavoritesInput = {
@@ -547,6 +569,7 @@ export type AccountUncheckedCreateWithoutFavoritesInput = {
   updatedAt?: Date | string
   tracks?: Prisma.TrackUncheckedCreateNestedManyWithoutAccountInput
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAccountInput
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutAccountInput
 }
 
 export type AccountCreateOrConnectWithoutFavoritesInput = {
@@ -579,6 +602,7 @@ export type AccountUpdateWithoutFavoritesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tracks?: Prisma.TrackUpdateManyWithoutAccountNestedInput
   comments?: Prisma.CommentUpdateManyWithoutAccountNestedInput
+  likes?: Prisma.LikeUpdateManyWithoutAccountNestedInput
 }
 
 export type AccountUncheckedUpdateWithoutFavoritesInput = {
@@ -595,6 +619,91 @@ export type AccountUncheckedUpdateWithoutFavoritesInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tracks?: Prisma.TrackUncheckedUpdateManyWithoutAccountNestedInput
   comments?: Prisma.CommentUncheckedUpdateManyWithoutAccountNestedInput
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutAccountNestedInput
+}
+
+export type AccountCreateWithoutLikesInput = {
+  id?: string
+  email: string
+  password: string
+  name: string
+  avatar?: string
+  bio: string
+  notificationNewComments?: boolean
+  notificationLikes?: boolean
+  notificationNewTrackInFavorites?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tracks?: Prisma.TrackCreateNestedManyWithoutAccountInput
+  comments?: Prisma.CommentCreateNestedManyWithoutAccountInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutAccountInput
+}
+
+export type AccountUncheckedCreateWithoutLikesInput = {
+  id?: string
+  email: string
+  password: string
+  name: string
+  avatar?: string
+  bio: string
+  notificationNewComments?: boolean
+  notificationLikes?: boolean
+  notificationNewTrackInFavorites?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tracks?: Prisma.TrackUncheckedCreateNestedManyWithoutAccountInput
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAccountInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutAccountInput
+}
+
+export type AccountCreateOrConnectWithoutLikesInput = {
+  where: Prisma.AccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.AccountCreateWithoutLikesInput, Prisma.AccountUncheckedCreateWithoutLikesInput>
+}
+
+export type AccountUpsertWithoutLikesInput = {
+  update: Prisma.XOR<Prisma.AccountUpdateWithoutLikesInput, Prisma.AccountUncheckedUpdateWithoutLikesInput>
+  create: Prisma.XOR<Prisma.AccountCreateWithoutLikesInput, Prisma.AccountUncheckedCreateWithoutLikesInput>
+  where?: Prisma.AccountWhereInput
+}
+
+export type AccountUpdateToOneWithWhereWithoutLikesInput = {
+  where?: Prisma.AccountWhereInput
+  data: Prisma.XOR<Prisma.AccountUpdateWithoutLikesInput, Prisma.AccountUncheckedUpdateWithoutLikesInput>
+}
+
+export type AccountUpdateWithoutLikesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  notificationNewComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notificationLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notificationNewTrackInFavorites?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tracks?: Prisma.TrackUpdateManyWithoutAccountNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutAccountNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutAccountNestedInput
+}
+
+export type AccountUncheckedUpdateWithoutLikesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  avatar?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  notificationNewComments?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notificationLikes?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  notificationNewTrackInFavorites?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tracks?: Prisma.TrackUncheckedUpdateManyWithoutAccountNestedInput
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutAccountNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutAccountNestedInput
 }
 
 export type AccountCreateWithoutTracksInput = {
@@ -611,6 +720,7 @@ export type AccountCreateWithoutTracksInput = {
   updatedAt?: Date | string
   comments?: Prisma.CommentCreateNestedManyWithoutAccountInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutAccountInput
+  likes?: Prisma.LikeCreateNestedManyWithoutAccountInput
 }
 
 export type AccountUncheckedCreateWithoutTracksInput = {
@@ -627,6 +737,7 @@ export type AccountUncheckedCreateWithoutTracksInput = {
   updatedAt?: Date | string
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutAccountInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutAccountInput
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutAccountInput
 }
 
 export type AccountCreateOrConnectWithoutTracksInput = {
@@ -659,6 +770,7 @@ export type AccountUpdateWithoutTracksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comments?: Prisma.CommentUpdateManyWithoutAccountNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutAccountNestedInput
+  likes?: Prisma.LikeUpdateManyWithoutAccountNestedInput
 }
 
 export type AccountUncheckedUpdateWithoutTracksInput = {
@@ -675,6 +787,7 @@ export type AccountUncheckedUpdateWithoutTracksInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comments?: Prisma.CommentUncheckedUpdateManyWithoutAccountNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutAccountNestedInput
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutAccountNestedInput
 }
 
 export type AccountCreateWithoutCommentsInput = {
@@ -691,6 +804,7 @@ export type AccountCreateWithoutCommentsInput = {
   updatedAt?: Date | string
   tracks?: Prisma.TrackCreateNestedManyWithoutAccountInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutAccountInput
+  likes?: Prisma.LikeCreateNestedManyWithoutAccountInput
 }
 
 export type AccountUncheckedCreateWithoutCommentsInput = {
@@ -707,6 +821,7 @@ export type AccountUncheckedCreateWithoutCommentsInput = {
   updatedAt?: Date | string
   tracks?: Prisma.TrackUncheckedCreateNestedManyWithoutAccountInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutAccountInput
+  likes?: Prisma.LikeUncheckedCreateNestedManyWithoutAccountInput
 }
 
 export type AccountCreateOrConnectWithoutCommentsInput = {
@@ -739,6 +854,7 @@ export type AccountUpdateWithoutCommentsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tracks?: Prisma.TrackUpdateManyWithoutAccountNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutAccountNestedInput
+  likes?: Prisma.LikeUpdateManyWithoutAccountNestedInput
 }
 
 export type AccountUncheckedUpdateWithoutCommentsInput = {
@@ -755,6 +871,7 @@ export type AccountUncheckedUpdateWithoutCommentsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tracks?: Prisma.TrackUncheckedUpdateManyWithoutAccountNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutAccountNestedInput
+  likes?: Prisma.LikeUncheckedUpdateManyWithoutAccountNestedInput
 }
 
 
@@ -766,12 +883,14 @@ export type AccountCountOutputType = {
   tracks: number
   comments: number
   favorites: number
+  likes: number
 }
 
 export type AccountCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tracks?: boolean | AccountCountOutputTypeCountTracksArgs
   comments?: boolean | AccountCountOutputTypeCountCommentsArgs
   favorites?: boolean | AccountCountOutputTypeCountFavoritesArgs
+  likes?: boolean | AccountCountOutputTypeCountLikesArgs
 }
 
 /**
@@ -805,6 +924,13 @@ export type AccountCountOutputTypeCountFavoritesArgs<ExtArgs extends runtime.Typ
   where?: Prisma.FavoriteWhereInput
 }
 
+/**
+ * AccountCountOutputType without action
+ */
+export type AccountCountOutputTypeCountLikesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LikeWhereInput
+}
+
 
 export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -821,6 +947,7 @@ export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   tracks?: boolean | Prisma.Account$tracksArgs<ExtArgs>
   comments?: boolean | Prisma.Account$commentsArgs<ExtArgs>
   favorites?: boolean | Prisma.Account$favoritesArgs<ExtArgs>
+  likes?: boolean | Prisma.Account$likesArgs<ExtArgs>
   _count?: boolean | Prisma.AccountCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["account"]>
 
@@ -871,6 +998,7 @@ export type AccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   tracks?: boolean | Prisma.Account$tracksArgs<ExtArgs>
   comments?: boolean | Prisma.Account$commentsArgs<ExtArgs>
   favorites?: boolean | Prisma.Account$favoritesArgs<ExtArgs>
+  likes?: boolean | Prisma.Account$likesArgs<ExtArgs>
   _count?: boolean | Prisma.AccountCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AccountIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -882,6 +1010,7 @@ export type $AccountPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     tracks: Prisma.$TrackPayload<ExtArgs>[]
     comments: Prisma.$CommentPayload<ExtArgs>[]
     favorites: Prisma.$FavoritePayload<ExtArgs>[]
+    likes: Prisma.$LikePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1292,6 +1421,7 @@ export interface Prisma__AccountClient<T, Null = never, ExtArgs extends runtime.
   tracks<T extends Prisma.Account$tracksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$tracksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   comments<T extends Prisma.Account$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   favorites<T extends Prisma.Account$favoritesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  likes<T extends Prisma.Account$likesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$likesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1794,6 +1924,30 @@ export type Account$favoritesArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.FavoriteScalarFieldEnum | Prisma.FavoriteScalarFieldEnum[]
+}
+
+/**
+ * Account.likes
+ */
+export type Account$likesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Like
+   */
+  select?: Prisma.LikeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Like
+   */
+  omit?: Prisma.LikeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LikeInclude<ExtArgs> | null
+  where?: Prisma.LikeWhereInput
+  orderBy?: Prisma.LikeOrderByWithRelationInput | Prisma.LikeOrderByWithRelationInput[]
+  cursor?: Prisma.LikeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LikeScalarFieldEnum | Prisma.LikeScalarFieldEnum[]
 }
 
 /**

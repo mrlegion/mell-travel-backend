@@ -7,6 +7,8 @@ import { PrismaModule } from './services/prisma/prisma.module'
 import { TokenModule } from './services/token/token.module'
 import { TrackModule } from './modules/track/track.module';
 import { ProfileModule } from './modules/profile/profile.module';
+import { LikeModule } from './modules/like/like.module';
+import { FavoriteModule } from './modules/favorite/favorite.module';
 
 @Module({
 	imports: [
@@ -16,7 +18,9 @@ import { ProfileModule } from './modules/profile/profile.module';
 		TokenModule,
 		CommentsModule,
 		TrackModule,
-		ProfileModule
+		ProfileModule,
+		LikeModule,
+		FavoriteModule
 	]
 })
 export class AppModule {}

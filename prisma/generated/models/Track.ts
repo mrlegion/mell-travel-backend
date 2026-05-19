@@ -20,8 +20,22 @@ export type TrackModel = runtime.Types.Result.DefaultSelection<Prisma.$TrackPayl
 
 export type AggregateTrack = {
   _count: TrackCountAggregateOutputType | null
+  _avg: TrackAvgAggregateOutputType | null
+  _sum: TrackSumAggregateOutputType | null
   _min: TrackMinAggregateOutputType | null
   _max: TrackMaxAggregateOutputType | null
+}
+
+export type TrackAvgAggregateOutputType = {
+  likes: number | null
+  lat: number | null
+  lng: number | null
+}
+
+export type TrackSumAggregateOutputType = {
+  likes: number | null
+  lat: number | null
+  lng: number | null
 }
 
 export type TrackMinAggregateOutputType = {
@@ -31,9 +45,9 @@ export type TrackMinAggregateOutputType = {
   text: string | null
   excerpt: string | null
   date: Date | null
-  likes: string | null
-  lat: string | null
-  lng: string | null
+  likes: number | null
+  lat: number | null
+  lng: number | null
   duration: string | null
   difficulty: string | null
   accountId: string | null
@@ -48,9 +62,9 @@ export type TrackMaxAggregateOutputType = {
   text: string | null
   excerpt: string | null
   date: Date | null
-  likes: string | null
-  lat: string | null
-  lng: string | null
+  likes: number | null
+  lat: number | null
+  lng: number | null
   duration: string | null
   difficulty: string | null
   accountId: string | null
@@ -78,6 +92,18 @@ export type TrackCountAggregateOutputType = {
   _all: number
 }
 
+
+export type TrackAvgAggregateInputType = {
+  likes?: true
+  lat?: true
+  lng?: true
+}
+
+export type TrackSumAggregateInputType = {
+  likes?: true
+  lat?: true
+  lng?: true
+}
 
 export type TrackMinAggregateInputType = {
   id?: true
@@ -171,6 +197,18 @@ export type TrackAggregateArgs<ExtArgs extends runtime.Types.Extensions.Internal
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: TrackAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: TrackSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: TrackMinAggregateInputType
@@ -201,6 +239,8 @@ export type TrackGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   _count?: TrackCountAggregateInputType | true
+  _avg?: TrackAvgAggregateInputType
+  _sum?: TrackSumAggregateInputType
   _min?: TrackMinAggregateInputType
   _max?: TrackMaxAggregateInputType
 }
@@ -214,15 +254,17 @@ export type TrackGroupByOutputType = {
   excerpt: string
   images: string[]
   date: Date
-  likes: string
-  lat: string
-  lng: string
+  likes: number
+  lat: number
+  lng: number
   duration: string
   difficulty: string
   accountId: string
   createdAt: Date
   updatedAt: Date
   _count: TrackCountAggregateOutputType | null
+  _avg: TrackAvgAggregateOutputType | null
+  _sum: TrackSumAggregateOutputType | null
   _min: TrackMinAggregateOutputType | null
   _max: TrackMaxAggregateOutputType | null
 }
@@ -254,9 +296,9 @@ export type TrackWhereInput = {
   excerpt?: Prisma.StringFilter<"Track"> | string
   images?: Prisma.StringNullableListFilter<"Track">
   date?: Prisma.DateTimeFilter<"Track"> | Date | string
-  likes?: Prisma.StringFilter<"Track"> | string
-  lat?: Prisma.StringFilter<"Track"> | string
-  lng?: Prisma.StringFilter<"Track"> | string
+  likes?: Prisma.IntFilter<"Track"> | number
+  lat?: Prisma.FloatFilter<"Track"> | number
+  lng?: Prisma.FloatFilter<"Track"> | number
   duration?: Prisma.StringFilter<"Track"> | string
   difficulty?: Prisma.StringFilter<"Track"> | string
   accountId?: Prisma.StringFilter<"Track"> | string
@@ -265,6 +307,7 @@ export type TrackWhereInput = {
   account?: Prisma.XOR<Prisma.AccountScalarRelationFilter, Prisma.AccountWhereInput>
   comments?: Prisma.CommentListRelationFilter
   favorites?: Prisma.FavoriteListRelationFilter
+  likesList?: Prisma.LikeListRelationFilter
 }
 
 export type TrackOrderByWithRelationInput = {
@@ -287,6 +330,7 @@ export type TrackOrderByWithRelationInput = {
   account?: Prisma.AccountOrderByWithRelationInput
   comments?: Prisma.CommentOrderByRelationAggregateInput
   favorites?: Prisma.FavoriteOrderByRelationAggregateInput
+  likesList?: Prisma.LikeOrderByRelationAggregateInput
 }
 
 export type TrackWhereUniqueInput = Prisma.AtLeast<{
@@ -301,9 +345,9 @@ export type TrackWhereUniqueInput = Prisma.AtLeast<{
   excerpt?: Prisma.StringFilter<"Track"> | string
   images?: Prisma.StringNullableListFilter<"Track">
   date?: Prisma.DateTimeFilter<"Track"> | Date | string
-  likes?: Prisma.StringFilter<"Track"> | string
-  lat?: Prisma.StringFilter<"Track"> | string
-  lng?: Prisma.StringFilter<"Track"> | string
+  likes?: Prisma.IntFilter<"Track"> | number
+  lat?: Prisma.FloatFilter<"Track"> | number
+  lng?: Prisma.FloatFilter<"Track"> | number
   duration?: Prisma.StringFilter<"Track"> | string
   difficulty?: Prisma.StringFilter<"Track"> | string
   accountId?: Prisma.StringFilter<"Track"> | string
@@ -312,6 +356,7 @@ export type TrackWhereUniqueInput = Prisma.AtLeast<{
   account?: Prisma.XOR<Prisma.AccountScalarRelationFilter, Prisma.AccountWhereInput>
   comments?: Prisma.CommentListRelationFilter
   favorites?: Prisma.FavoriteListRelationFilter
+  likesList?: Prisma.LikeListRelationFilter
 }, "id" | "title">
 
 export type TrackOrderByWithAggregationInput = {
@@ -332,8 +377,10 @@ export type TrackOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.TrackCountOrderByAggregateInput
+  _avg?: Prisma.TrackAvgOrderByAggregateInput
   _max?: Prisma.TrackMaxOrderByAggregateInput
   _min?: Prisma.TrackMinOrderByAggregateInput
+  _sum?: Prisma.TrackSumOrderByAggregateInput
 }
 
 export type TrackScalarWhereWithAggregatesInput = {
@@ -348,9 +395,9 @@ export type TrackScalarWhereWithAggregatesInput = {
   excerpt?: Prisma.StringWithAggregatesFilter<"Track"> | string
   images?: Prisma.StringNullableListFilter<"Track">
   date?: Prisma.DateTimeWithAggregatesFilter<"Track"> | Date | string
-  likes?: Prisma.StringWithAggregatesFilter<"Track"> | string
-  lat?: Prisma.StringWithAggregatesFilter<"Track"> | string
-  lng?: Prisma.StringWithAggregatesFilter<"Track"> | string
+  likes?: Prisma.IntWithAggregatesFilter<"Track"> | number
+  lat?: Prisma.FloatWithAggregatesFilter<"Track"> | number
+  lng?: Prisma.FloatWithAggregatesFilter<"Track"> | number
   duration?: Prisma.StringWithAggregatesFilter<"Track"> | string
   difficulty?: Prisma.StringWithAggregatesFilter<"Track"> | string
   accountId?: Prisma.StringWithAggregatesFilter<"Track"> | string
@@ -367,9 +414,9 @@ export type TrackCreateInput = {
   excerpt: string
   images?: Prisma.TrackCreateimagesInput | string[]
   date: Date | string
-  likes: string
-  lat: string
-  lng: string
+  likes: number
+  lat: number
+  lng: number
   duration: string
   difficulty: string
   createdAt?: Date | string
@@ -377,6 +424,7 @@ export type TrackCreateInput = {
   account: Prisma.AccountCreateNestedOneWithoutTracksInput
   comments?: Prisma.CommentCreateNestedManyWithoutTrackInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutTrackInput
+  likesList?: Prisma.LikeCreateNestedManyWithoutTrackInput
 }
 
 export type TrackUncheckedCreateInput = {
@@ -388,9 +436,9 @@ export type TrackUncheckedCreateInput = {
   excerpt: string
   images?: Prisma.TrackCreateimagesInput | string[]
   date: Date | string
-  likes: string
-  lat: string
-  lng: string
+  likes: number
+  lat: number
+  lng: number
   duration: string
   difficulty: string
   accountId: string
@@ -398,6 +446,7 @@ export type TrackUncheckedCreateInput = {
   updatedAt?: Date | string
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutTrackInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutTrackInput
+  likesList?: Prisma.LikeUncheckedCreateNestedManyWithoutTrackInput
 }
 
 export type TrackUpdateInput = {
@@ -409,9 +458,9 @@ export type TrackUpdateInput = {
   excerpt?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.TrackUpdateimagesInput | string[]
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  likes?: Prisma.StringFieldUpdateOperationsInput | string
-  lat?: Prisma.StringFieldUpdateOperationsInput | string
-  lng?: Prisma.StringFieldUpdateOperationsInput | string
+  likes?: Prisma.IntFieldUpdateOperationsInput | number
+  lat?: Prisma.FloatFieldUpdateOperationsInput | number
+  lng?: Prisma.FloatFieldUpdateOperationsInput | number
   duration?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -419,6 +468,7 @@ export type TrackUpdateInput = {
   account?: Prisma.AccountUpdateOneRequiredWithoutTracksNestedInput
   comments?: Prisma.CommentUpdateManyWithoutTrackNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutTrackNestedInput
+  likesList?: Prisma.LikeUpdateManyWithoutTrackNestedInput
 }
 
 export type TrackUncheckedUpdateInput = {
@@ -430,9 +480,9 @@ export type TrackUncheckedUpdateInput = {
   excerpt?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.TrackUpdateimagesInput | string[]
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  likes?: Prisma.StringFieldUpdateOperationsInput | string
-  lat?: Prisma.StringFieldUpdateOperationsInput | string
-  lng?: Prisma.StringFieldUpdateOperationsInput | string
+  likes?: Prisma.IntFieldUpdateOperationsInput | number
+  lat?: Prisma.FloatFieldUpdateOperationsInput | number
+  lng?: Prisma.FloatFieldUpdateOperationsInput | number
   duration?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.StringFieldUpdateOperationsInput | string
   accountId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -440,6 +490,7 @@ export type TrackUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comments?: Prisma.CommentUncheckedUpdateManyWithoutTrackNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutTrackNestedInput
+  likesList?: Prisma.LikeUncheckedUpdateManyWithoutTrackNestedInput
 }
 
 export type TrackCreateManyInput = {
@@ -451,9 +502,9 @@ export type TrackCreateManyInput = {
   excerpt: string
   images?: Prisma.TrackCreateimagesInput | string[]
   date: Date | string
-  likes: string
-  lat: string
-  lng: string
+  likes: number
+  lat: number
+  lng: number
   duration: string
   difficulty: string
   accountId: string
@@ -470,9 +521,9 @@ export type TrackUpdateManyMutationInput = {
   excerpt?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.TrackUpdateimagesInput | string[]
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  likes?: Prisma.StringFieldUpdateOperationsInput | string
-  lat?: Prisma.StringFieldUpdateOperationsInput | string
-  lng?: Prisma.StringFieldUpdateOperationsInput | string
+  likes?: Prisma.IntFieldUpdateOperationsInput | number
+  lat?: Prisma.FloatFieldUpdateOperationsInput | number
+  lng?: Prisma.FloatFieldUpdateOperationsInput | number
   duration?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -488,9 +539,9 @@ export type TrackUncheckedUpdateManyInput = {
   excerpt?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.TrackUpdateimagesInput | string[]
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  likes?: Prisma.StringFieldUpdateOperationsInput | string
-  lat?: Prisma.StringFieldUpdateOperationsInput | string
-  lng?: Prisma.StringFieldUpdateOperationsInput | string
+  likes?: Prisma.IntFieldUpdateOperationsInput | number
+  lat?: Prisma.FloatFieldUpdateOperationsInput | number
+  lng?: Prisma.FloatFieldUpdateOperationsInput | number
   duration?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.StringFieldUpdateOperationsInput | string
   accountId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -540,6 +591,12 @@ export type TrackCountOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type TrackAvgOrderByAggregateInput = {
+  likes?: Prisma.SortOrder
+  lat?: Prisma.SortOrder
+  lng?: Prisma.SortOrder
+}
+
 export type TrackMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
@@ -572,6 +629,12 @@ export type TrackMinOrderByAggregateInput = {
   accountId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type TrackSumOrderByAggregateInput = {
+  likes?: Prisma.SortOrder
+  lat?: Prisma.SortOrder
+  lng?: Prisma.SortOrder
 }
 
 export type TrackCreateNestedManyWithoutAccountInput = {
@@ -630,6 +693,20 @@ export type TrackUpdateOneRequiredWithoutFavoritesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TrackUpdateToOneWithWhereWithoutFavoritesInput, Prisma.TrackUpdateWithoutFavoritesInput>, Prisma.TrackUncheckedUpdateWithoutFavoritesInput>
 }
 
+export type TrackCreateNestedOneWithoutLikesListInput = {
+  create?: Prisma.XOR<Prisma.TrackCreateWithoutLikesListInput, Prisma.TrackUncheckedCreateWithoutLikesListInput>
+  connectOrCreate?: Prisma.TrackCreateOrConnectWithoutLikesListInput
+  connect?: Prisma.TrackWhereUniqueInput
+}
+
+export type TrackUpdateOneRequiredWithoutLikesListNestedInput = {
+  create?: Prisma.XOR<Prisma.TrackCreateWithoutLikesListInput, Prisma.TrackUncheckedCreateWithoutLikesListInput>
+  connectOrCreate?: Prisma.TrackCreateOrConnectWithoutLikesListInput
+  upsert?: Prisma.TrackUpsertWithoutLikesListInput
+  connect?: Prisma.TrackWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TrackUpdateToOneWithWhereWithoutLikesListInput, Prisma.TrackUpdateWithoutLikesListInput>, Prisma.TrackUncheckedUpdateWithoutLikesListInput>
+}
+
 export type TrackCreatetagsInput = {
   set: string[]
 }
@@ -646,6 +723,22 @@ export type TrackUpdatetagsInput = {
 export type TrackUpdateimagesInput = {
   set?: string[]
   push?: string | string[]
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type FloatFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type TrackCreateNestedOneWithoutCommentsInput = {
@@ -671,15 +764,16 @@ export type TrackCreateWithoutAccountInput = {
   excerpt: string
   images?: Prisma.TrackCreateimagesInput | string[]
   date: Date | string
-  likes: string
-  lat: string
-  lng: string
+  likes: number
+  lat: number
+  lng: number
   duration: string
   difficulty: string
   createdAt?: Date | string
   updatedAt?: Date | string
   comments?: Prisma.CommentCreateNestedManyWithoutTrackInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutTrackInput
+  likesList?: Prisma.LikeCreateNestedManyWithoutTrackInput
 }
 
 export type TrackUncheckedCreateWithoutAccountInput = {
@@ -691,15 +785,16 @@ export type TrackUncheckedCreateWithoutAccountInput = {
   excerpt: string
   images?: Prisma.TrackCreateimagesInput | string[]
   date: Date | string
-  likes: string
-  lat: string
-  lng: string
+  likes: number
+  lat: number
+  lng: number
   duration: string
   difficulty: string
   createdAt?: Date | string
   updatedAt?: Date | string
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutTrackInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutTrackInput
+  likesList?: Prisma.LikeUncheckedCreateNestedManyWithoutTrackInput
 }
 
 export type TrackCreateOrConnectWithoutAccountInput = {
@@ -740,9 +835,9 @@ export type TrackScalarWhereInput = {
   excerpt?: Prisma.StringFilter<"Track"> | string
   images?: Prisma.StringNullableListFilter<"Track">
   date?: Prisma.DateTimeFilter<"Track"> | Date | string
-  likes?: Prisma.StringFilter<"Track"> | string
-  lat?: Prisma.StringFilter<"Track"> | string
-  lng?: Prisma.StringFilter<"Track"> | string
+  likes?: Prisma.IntFilter<"Track"> | number
+  lat?: Prisma.FloatFilter<"Track"> | number
+  lng?: Prisma.FloatFilter<"Track"> | number
   duration?: Prisma.StringFilter<"Track"> | string
   difficulty?: Prisma.StringFilter<"Track"> | string
   accountId?: Prisma.StringFilter<"Track"> | string
@@ -759,15 +854,16 @@ export type TrackCreateWithoutFavoritesInput = {
   excerpt: string
   images?: Prisma.TrackCreateimagesInput | string[]
   date: Date | string
-  likes: string
-  lat: string
-  lng: string
+  likes: number
+  lat: number
+  lng: number
   duration: string
   difficulty: string
   createdAt?: Date | string
   updatedAt?: Date | string
   account: Prisma.AccountCreateNestedOneWithoutTracksInput
   comments?: Prisma.CommentCreateNestedManyWithoutTrackInput
+  likesList?: Prisma.LikeCreateNestedManyWithoutTrackInput
 }
 
 export type TrackUncheckedCreateWithoutFavoritesInput = {
@@ -779,15 +875,16 @@ export type TrackUncheckedCreateWithoutFavoritesInput = {
   excerpt: string
   images?: Prisma.TrackCreateimagesInput | string[]
   date: Date | string
-  likes: string
-  lat: string
-  lng: string
+  likes: number
+  lat: number
+  lng: number
   duration: string
   difficulty: string
   accountId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutTrackInput
+  likesList?: Prisma.LikeUncheckedCreateNestedManyWithoutTrackInput
 }
 
 export type TrackCreateOrConnectWithoutFavoritesInput = {
@@ -815,15 +912,16 @@ export type TrackUpdateWithoutFavoritesInput = {
   excerpt?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.TrackUpdateimagesInput | string[]
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  likes?: Prisma.StringFieldUpdateOperationsInput | string
-  lat?: Prisma.StringFieldUpdateOperationsInput | string
-  lng?: Prisma.StringFieldUpdateOperationsInput | string
+  likes?: Prisma.IntFieldUpdateOperationsInput | number
+  lat?: Prisma.FloatFieldUpdateOperationsInput | number
+  lng?: Prisma.FloatFieldUpdateOperationsInput | number
   duration?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   account?: Prisma.AccountUpdateOneRequiredWithoutTracksNestedInput
   comments?: Prisma.CommentUpdateManyWithoutTrackNestedInput
+  likesList?: Prisma.LikeUpdateManyWithoutTrackNestedInput
 }
 
 export type TrackUncheckedUpdateWithoutFavoritesInput = {
@@ -835,15 +933,116 @@ export type TrackUncheckedUpdateWithoutFavoritesInput = {
   excerpt?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.TrackUpdateimagesInput | string[]
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  likes?: Prisma.StringFieldUpdateOperationsInput | string
-  lat?: Prisma.StringFieldUpdateOperationsInput | string
-  lng?: Prisma.StringFieldUpdateOperationsInput | string
+  likes?: Prisma.IntFieldUpdateOperationsInput | number
+  lat?: Prisma.FloatFieldUpdateOperationsInput | number
+  lng?: Prisma.FloatFieldUpdateOperationsInput | number
   duration?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.StringFieldUpdateOperationsInput | string
   accountId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comments?: Prisma.CommentUncheckedUpdateManyWithoutTrackNestedInput
+  likesList?: Prisma.LikeUncheckedUpdateManyWithoutTrackNestedInput
+}
+
+export type TrackCreateWithoutLikesListInput = {
+  id?: string
+  title: string
+  region: string
+  tags?: Prisma.TrackCreatetagsInput | string[]
+  text: string
+  excerpt: string
+  images?: Prisma.TrackCreateimagesInput | string[]
+  date: Date | string
+  likes: number
+  lat: number
+  lng: number
+  duration: string
+  difficulty: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  account: Prisma.AccountCreateNestedOneWithoutTracksInput
+  comments?: Prisma.CommentCreateNestedManyWithoutTrackInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutTrackInput
+}
+
+export type TrackUncheckedCreateWithoutLikesListInput = {
+  id?: string
+  title: string
+  region: string
+  tags?: Prisma.TrackCreatetagsInput | string[]
+  text: string
+  excerpt: string
+  images?: Prisma.TrackCreateimagesInput | string[]
+  date: Date | string
+  likes: number
+  lat: number
+  lng: number
+  duration: string
+  difficulty: string
+  accountId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  comments?: Prisma.CommentUncheckedCreateNestedManyWithoutTrackInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutTrackInput
+}
+
+export type TrackCreateOrConnectWithoutLikesListInput = {
+  where: Prisma.TrackWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrackCreateWithoutLikesListInput, Prisma.TrackUncheckedCreateWithoutLikesListInput>
+}
+
+export type TrackUpsertWithoutLikesListInput = {
+  update: Prisma.XOR<Prisma.TrackUpdateWithoutLikesListInput, Prisma.TrackUncheckedUpdateWithoutLikesListInput>
+  create: Prisma.XOR<Prisma.TrackCreateWithoutLikesListInput, Prisma.TrackUncheckedCreateWithoutLikesListInput>
+  where?: Prisma.TrackWhereInput
+}
+
+export type TrackUpdateToOneWithWhereWithoutLikesListInput = {
+  where?: Prisma.TrackWhereInput
+  data: Prisma.XOR<Prisma.TrackUpdateWithoutLikesListInput, Prisma.TrackUncheckedUpdateWithoutLikesListInput>
+}
+
+export type TrackUpdateWithoutLikesListInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  region?: Prisma.StringFieldUpdateOperationsInput | string
+  tags?: Prisma.TrackUpdatetagsInput | string[]
+  text?: Prisma.StringFieldUpdateOperationsInput | string
+  excerpt?: Prisma.StringFieldUpdateOperationsInput | string
+  images?: Prisma.TrackUpdateimagesInput | string[]
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  likes?: Prisma.IntFieldUpdateOperationsInput | number
+  lat?: Prisma.FloatFieldUpdateOperationsInput | number
+  lng?: Prisma.FloatFieldUpdateOperationsInput | number
+  duration?: Prisma.StringFieldUpdateOperationsInput | string
+  difficulty?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  account?: Prisma.AccountUpdateOneRequiredWithoutTracksNestedInput
+  comments?: Prisma.CommentUpdateManyWithoutTrackNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutTrackNestedInput
+}
+
+export type TrackUncheckedUpdateWithoutLikesListInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  region?: Prisma.StringFieldUpdateOperationsInput | string
+  tags?: Prisma.TrackUpdatetagsInput | string[]
+  text?: Prisma.StringFieldUpdateOperationsInput | string
+  excerpt?: Prisma.StringFieldUpdateOperationsInput | string
+  images?: Prisma.TrackUpdateimagesInput | string[]
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  likes?: Prisma.IntFieldUpdateOperationsInput | number
+  lat?: Prisma.FloatFieldUpdateOperationsInput | number
+  lng?: Prisma.FloatFieldUpdateOperationsInput | number
+  duration?: Prisma.StringFieldUpdateOperationsInput | string
+  difficulty?: Prisma.StringFieldUpdateOperationsInput | string
+  accountId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  comments?: Prisma.CommentUncheckedUpdateManyWithoutTrackNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutTrackNestedInput
 }
 
 export type TrackCreateWithoutCommentsInput = {
@@ -855,15 +1054,16 @@ export type TrackCreateWithoutCommentsInput = {
   excerpt: string
   images?: Prisma.TrackCreateimagesInput | string[]
   date: Date | string
-  likes: string
-  lat: string
-  lng: string
+  likes: number
+  lat: number
+  lng: number
   duration: string
   difficulty: string
   createdAt?: Date | string
   updatedAt?: Date | string
   account: Prisma.AccountCreateNestedOneWithoutTracksInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutTrackInput
+  likesList?: Prisma.LikeCreateNestedManyWithoutTrackInput
 }
 
 export type TrackUncheckedCreateWithoutCommentsInput = {
@@ -875,15 +1075,16 @@ export type TrackUncheckedCreateWithoutCommentsInput = {
   excerpt: string
   images?: Prisma.TrackCreateimagesInput | string[]
   date: Date | string
-  likes: string
-  lat: string
-  lng: string
+  likes: number
+  lat: number
+  lng: number
   duration: string
   difficulty: string
   accountId: string
   createdAt?: Date | string
   updatedAt?: Date | string
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutTrackInput
+  likesList?: Prisma.LikeUncheckedCreateNestedManyWithoutTrackInput
 }
 
 export type TrackCreateOrConnectWithoutCommentsInput = {
@@ -911,15 +1112,16 @@ export type TrackUpdateWithoutCommentsInput = {
   excerpt?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.TrackUpdateimagesInput | string[]
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  likes?: Prisma.StringFieldUpdateOperationsInput | string
-  lat?: Prisma.StringFieldUpdateOperationsInput | string
-  lng?: Prisma.StringFieldUpdateOperationsInput | string
+  likes?: Prisma.IntFieldUpdateOperationsInput | number
+  lat?: Prisma.FloatFieldUpdateOperationsInput | number
+  lng?: Prisma.FloatFieldUpdateOperationsInput | number
   duration?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   account?: Prisma.AccountUpdateOneRequiredWithoutTracksNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutTrackNestedInput
+  likesList?: Prisma.LikeUpdateManyWithoutTrackNestedInput
 }
 
 export type TrackUncheckedUpdateWithoutCommentsInput = {
@@ -931,15 +1133,16 @@ export type TrackUncheckedUpdateWithoutCommentsInput = {
   excerpt?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.TrackUpdateimagesInput | string[]
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  likes?: Prisma.StringFieldUpdateOperationsInput | string
-  lat?: Prisma.StringFieldUpdateOperationsInput | string
-  lng?: Prisma.StringFieldUpdateOperationsInput | string
+  likes?: Prisma.IntFieldUpdateOperationsInput | number
+  lat?: Prisma.FloatFieldUpdateOperationsInput | number
+  lng?: Prisma.FloatFieldUpdateOperationsInput | number
   duration?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.StringFieldUpdateOperationsInput | string
   accountId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutTrackNestedInput
+  likesList?: Prisma.LikeUncheckedUpdateManyWithoutTrackNestedInput
 }
 
 export type TrackCreateManyAccountInput = {
@@ -951,9 +1154,9 @@ export type TrackCreateManyAccountInput = {
   excerpt: string
   images?: Prisma.TrackCreateimagesInput | string[]
   date: Date | string
-  likes: string
-  lat: string
-  lng: string
+  likes: number
+  lat: number
+  lng: number
   duration: string
   difficulty: string
   createdAt?: Date | string
@@ -969,15 +1172,16 @@ export type TrackUpdateWithoutAccountInput = {
   excerpt?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.TrackUpdateimagesInput | string[]
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  likes?: Prisma.StringFieldUpdateOperationsInput | string
-  lat?: Prisma.StringFieldUpdateOperationsInput | string
-  lng?: Prisma.StringFieldUpdateOperationsInput | string
+  likes?: Prisma.IntFieldUpdateOperationsInput | number
+  lat?: Prisma.FloatFieldUpdateOperationsInput | number
+  lng?: Prisma.FloatFieldUpdateOperationsInput | number
   duration?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comments?: Prisma.CommentUpdateManyWithoutTrackNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutTrackNestedInput
+  likesList?: Prisma.LikeUpdateManyWithoutTrackNestedInput
 }
 
 export type TrackUncheckedUpdateWithoutAccountInput = {
@@ -989,15 +1193,16 @@ export type TrackUncheckedUpdateWithoutAccountInput = {
   excerpt?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.TrackUpdateimagesInput | string[]
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  likes?: Prisma.StringFieldUpdateOperationsInput | string
-  lat?: Prisma.StringFieldUpdateOperationsInput | string
-  lng?: Prisma.StringFieldUpdateOperationsInput | string
+  likes?: Prisma.IntFieldUpdateOperationsInput | number
+  lat?: Prisma.FloatFieldUpdateOperationsInput | number
+  lng?: Prisma.FloatFieldUpdateOperationsInput | number
   duration?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comments?: Prisma.CommentUncheckedUpdateManyWithoutTrackNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutTrackNestedInput
+  likesList?: Prisma.LikeUncheckedUpdateManyWithoutTrackNestedInput
 }
 
 export type TrackUncheckedUpdateManyWithoutAccountInput = {
@@ -1009,9 +1214,9 @@ export type TrackUncheckedUpdateManyWithoutAccountInput = {
   excerpt?: Prisma.StringFieldUpdateOperationsInput | string
   images?: Prisma.TrackUpdateimagesInput | string[]
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  likes?: Prisma.StringFieldUpdateOperationsInput | string
-  lat?: Prisma.StringFieldUpdateOperationsInput | string
-  lng?: Prisma.StringFieldUpdateOperationsInput | string
+  likes?: Prisma.IntFieldUpdateOperationsInput | number
+  lat?: Prisma.FloatFieldUpdateOperationsInput | number
+  lng?: Prisma.FloatFieldUpdateOperationsInput | number
   duration?: Prisma.StringFieldUpdateOperationsInput | string
   difficulty?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1026,11 +1231,13 @@ export type TrackUncheckedUpdateManyWithoutAccountInput = {
 export type TrackCountOutputType = {
   comments: number
   favorites: number
+  likesList: number
 }
 
 export type TrackCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   comments?: boolean | TrackCountOutputTypeCountCommentsArgs
   favorites?: boolean | TrackCountOutputTypeCountFavoritesArgs
+  likesList?: boolean | TrackCountOutputTypeCountLikesListArgs
 }
 
 /**
@@ -1057,6 +1264,13 @@ export type TrackCountOutputTypeCountFavoritesArgs<ExtArgs extends runtime.Types
   where?: Prisma.FavoriteWhereInput
 }
 
+/**
+ * TrackCountOutputType without action
+ */
+export type TrackCountOutputTypeCountLikesListArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.LikeWhereInput
+}
+
 
 export type TrackSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1078,6 +1292,7 @@ export type TrackSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   account?: boolean | Prisma.AccountDefaultArgs<ExtArgs>
   comments?: boolean | Prisma.Track$commentsArgs<ExtArgs>
   favorites?: boolean | Prisma.Track$favoritesArgs<ExtArgs>
+  likesList?: boolean | Prisma.Track$likesListArgs<ExtArgs>
   _count?: boolean | Prisma.TrackCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["track"]>
 
@@ -1145,6 +1360,7 @@ export type TrackInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   account?: boolean | Prisma.AccountDefaultArgs<ExtArgs>
   comments?: boolean | Prisma.Track$commentsArgs<ExtArgs>
   favorites?: boolean | Prisma.Track$favoritesArgs<ExtArgs>
+  likesList?: boolean | Prisma.Track$likesListArgs<ExtArgs>
   _count?: boolean | Prisma.TrackCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TrackIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1160,6 +1376,7 @@ export type $TrackPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     account: Prisma.$AccountPayload<ExtArgs>
     comments: Prisma.$CommentPayload<ExtArgs>[]
     favorites: Prisma.$FavoritePayload<ExtArgs>[]
+    likesList: Prisma.$LikePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1170,9 +1387,9 @@ export type $TrackPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     excerpt: string
     images: string[]
     date: Date
-    likes: string
-    lat: string
-    lng: string
+    likes: number
+    lat: number
+    lng: number
     duration: string
     difficulty: string
     accountId: string
@@ -1575,6 +1792,7 @@ export interface Prisma__TrackClient<T, Null = never, ExtArgs extends runtime.Ty
   account<T extends Prisma.AccountDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.AccountDefaultArgs<ExtArgs>>): Prisma.Prisma__AccountClient<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   comments<T extends Prisma.Track$commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Track$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   favorites<T extends Prisma.Track$favoritesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Track$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  likesList<T extends Prisma.Track$likesListArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Track$likesListArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1612,9 +1830,9 @@ export interface TrackFieldRefs {
   readonly excerpt: Prisma.FieldRef<"Track", 'String'>
   readonly images: Prisma.FieldRef<"Track", 'String[]'>
   readonly date: Prisma.FieldRef<"Track", 'DateTime'>
-  readonly likes: Prisma.FieldRef<"Track", 'String'>
-  readonly lat: Prisma.FieldRef<"Track", 'String'>
-  readonly lng: Prisma.FieldRef<"Track", 'String'>
+  readonly likes: Prisma.FieldRef<"Track", 'Int'>
+  readonly lat: Prisma.FieldRef<"Track", 'Float'>
+  readonly lng: Prisma.FieldRef<"Track", 'Float'>
   readonly duration: Prisma.FieldRef<"Track", 'String'>
   readonly difficulty: Prisma.FieldRef<"Track", 'String'>
   readonly accountId: Prisma.FieldRef<"Track", 'String'>
@@ -2066,6 +2284,30 @@ export type Track$favoritesArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.FavoriteScalarFieldEnum | Prisma.FavoriteScalarFieldEnum[]
+}
+
+/**
+ * Track.likesList
+ */
+export type Track$likesListArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Like
+   */
+  select?: Prisma.LikeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Like
+   */
+  omit?: Prisma.LikeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.LikeInclude<ExtArgs> | null
+  where?: Prisma.LikeWhereInput
+  orderBy?: Prisma.LikeOrderByWithRelationInput | Prisma.LikeOrderByWithRelationInput[]
+  cursor?: Prisma.LikeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.LikeScalarFieldEnum | Prisma.LikeScalarFieldEnum[]
 }
 
 /**

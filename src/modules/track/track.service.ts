@@ -4,23 +4,63 @@ import {
 	NotFoundException
 } from '@nestjs/common'
 
+import { Track } from '../../../prisma/generated/client'
 import { AccountRepository } from '../../repositories/account/account.repository'
+import { FavoritesRepository } from '../../repositories/favorites/favorites.repository'
 import { TrackRepository } from '../../repositories/track/track.repository'
+import { ToggleFavoritesRequest } from '../favorite/dto/toggle-favorites.request'
 
 import { CreateTrackRequest } from './dto/create-track.request'
+import { IFilteredQuery } from './dto/filtered-track.query'
 
 @Injectable()
 export class TrackService {
 	public constructor(
 		private readonly trackRepository: TrackRepository,
-		private readonly accountRepository: AccountRepository
+		private readonly accountRepository: AccountRepository,
+		private readonly favoritesRepository: FavoritesRepository
 	) {}
 
 	// ============================================================
 	//   Получение всех записей маршрутов
 	// ============================================================
-	public async getAll() {
-		return this.trackRepository.getAll()
+	public async getAll(searchTerm?: string) {
+		return this.trackRepository.getAll(searchTerm)
+	}
+
+	// ============================================================
+	//   Фильтрация маршрутов
+	// ============================================================
+	public async getFiltered(filters: IFilteredQuery) {
+		const whereConditions: any = {}
+
+		if (filters.searchTerm) {
+			whereConditions.OR = [
+				{
+					title: { contains: filters.searchTerm, mode: 'insensitive' }
+				},
+				{
+					excerpt: {
+						contains: filters.searchTerm,
+						mode: 'insensitive'
+					}
+				},
+				{ text: { contains: filters.searchTerm, mode: 'insensitive' } }
+			]
+		}
+
+		if (filters.region) whereConditions.region = filters.region
+
+		if (filters.tag) whereConditions.tags = { has: filters.tag }
+
+		const orderBy: any = {}
+		if (filters.sortBy === 'likes') {
+			orderBy.likes = 'desc'
+		} else {
+			orderBy.createdAt = 'desc'
+		}
+
+		return this.trackRepository.getFiltered(whereConditions, orderBy)
 	}
 
 	// ============================================================
@@ -28,6 +68,27 @@ export class TrackService {
 	// ============================================================
 	public async findByUser(userId: string) {
 		return this.trackRepository.findByUser(userId)
+	}
+
+	// ============================================================
+	//   Получение количества маршрутов
+	// ============================================================
+	public async getCounts() {
+		return this.trackRepository.getCount()
+	}
+
+	// ============================================================
+	//   Получение количества регионов
+	// ============================================================
+	public async getRegionCount() {
+		return this.trackRepository.getRegionCount()
+	}
+
+	// ============================================================
+	//   Получение списка регионов
+	// ============================================================
+	public async getRegionName() {
+		return this.trackRepository.getRegionName()
 	}
 
 	// ============================================================
@@ -75,5 +136,26 @@ export class TrackService {
 			difficulty,
 			account: { connect: { id: userId } }
 		})
+	}
+
+	// ============================================================
+	//   Получение самых популярных маршрутов
+	// ============================================================
+	public async getMostPopular() {
+		return this.trackRepository.getMostPopular()
+	}
+
+	// ============================================================
+	//   Получение наименование регионов с количеством маршрутов
+	// ============================================================
+	public async getRegions() {
+		return this.trackRepository.getRegions()
+	}
+
+	// ============================================================
+	//   Получение по ID
+	// ============================================================
+	public async getById(trackId: string) {
+		return this.trackRepository.findById(trackId)
 	}
 }

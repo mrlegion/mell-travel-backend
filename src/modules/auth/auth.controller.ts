@@ -4,11 +4,14 @@ import {
 	HttpCode,
 	HttpStatus,
 	Post,
-	Res
+	Res,
+	UseFilters
 } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { ApiOperation } from '@nestjs/swagger'
 import type { Response } from 'express'
+
+import { NotFoundExceptionFilter } from '../../shared/filters/not-found-exception.filter'
 
 import { AuthService } from './auth.service'
 import { LoginRequest } from './dto/login.request'

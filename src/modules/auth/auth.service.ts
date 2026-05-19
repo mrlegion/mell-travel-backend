@@ -9,10 +9,13 @@ import type { Response } from 'express'
 
 import { AccountRepository } from '../../repositories/account/account.repository'
 import { TokenService } from '../../services/token/token.service'
+import { Favorite, Track, User } from '../../shared/types'
 
 import { LoginRequest } from './dto/login.request'
+import { LoginResponse } from './dto/login.response'
 import { RefreshRequest } from './dto/refresh.request'
 import { RegisterRequest } from './dto/register.request'
+import { RegisterResponse } from './dto/register.response'
 
 @Injectable()
 export class AuthService {
@@ -25,7 +28,10 @@ export class AuthService {
 	// ============================================================
 	//   Вход в систему
 	// ============================================================
-	public async login(data: LoginRequest, res: Response) {
+	public async login(
+		data: LoginRequest,
+		res: Response
+	): Promise<LoginResponse> {
 		const { email, password } = data
 
 		const user = await this.accountRepository.findByEmail(email)
@@ -44,13 +50,18 @@ export class AuthService {
 
 		this.setCookie(res, refreshToken)
 
-		return { accessToken }
+		const retUser: User = this.mapAccountToUserWithAuthor(user)
+
+		return { accessToken, user: retUser }
 	}
 
 	// ============================================================
 	//   Регистрация в системе
 	// ============================================================
-	public async register(data: RegisterRequest, res: Response) {
+	public async register(
+		data: RegisterRequest,
+		res: Response
+	): Promise<RegisterResponse> {
 		const { name, email, password } = data // для удобства достаем данные из структуры
 
 		// проверим, что пользователя с таким электронным адресом нет
@@ -69,11 +80,13 @@ export class AuthService {
 			bio: ''
 		})
 
+		const retUser: User = this.mapAccountToUserWithAuthor(user)
+
 		const { accessToken, refreshToken } = this.token.generate(user.id)
 
 		this.setCookie(res, refreshToken)
 
-		return { accessToken }
+		return { accessToken, user: retUser }
 	}
 
 	// ============================================================
@@ -131,5 +144,56 @@ export class AuthService {
 			sameSite: 'lax',
 			maxAge: this.config.getOrThrow<number>('COOKIES_AGE') // 30 дней
 		})
+	}
+
+	private mapAccountToUserWithAuthor(user: any): User {
+		return {
+			id: user.id,
+			email: user.email,
+			name: user.name,
+			avatar: user.avatar,
+			bio: user.bio,
+			notificationNewComments: user.notificationNewComments,
+			notificationLikes: user.notificationLikes,
+			notificationNewTrackInFavorites:
+				user.notificationNewTrackInFavorites,
+			tracks: user.tracks
+				? user.tracks.map((track: any) => ({
+						id: track.id,
+						title: track.title,
+						region: track.region,
+						tags: track.tags,
+						excerpt: track.excerpt,
+						images: track.images,
+						likes: track.likes,
+						author: {
+							id: track.account?.id,
+							name: track.account?.name,
+							email: track.account?.email,
+							avatar: track.account?.avatar
+						}
+					}))
+				: [],
+			favorites: user.favorites
+				? user.favorites.map((favorite: any) => ({
+						id: favorite.id,
+						track: {
+							id: favorite.track?.id,
+							title: favorite.track?.title,
+							region: favorite.track?.region,
+							tags: favorite.track?.tags,
+							excerpt: favorite.track?.excerpt,
+							images: favorite.track?.images,
+							likes: favorite.track?.likes,
+							author: {
+								id: favorite.track?.account?.id,
+								name: favorite.track?.account?.name,
+								email: favorite.track?.account?.email,
+								avatar: favorite.track?.account?.avatar
+							}
+						}
+					}))
+				: []
+		}
 	}
 }

@@ -16,17 +16,17 @@ export class ProfileService {
 		if (!account) throw new NotFoundException('Пользователь не найден')
 
 		return {
-			user: {
-				id: account.id,
-				email: account.email,
-				name: account.name,
-				avatar: account.avatar,
-				bio: account.bio,
-				notificationNewComments: account.notificationNewComments,
-				notificationLikes: account.notificationLikes,
-				notificationNewTrackInFavorites:
-					account.notificationNewTrackInFavorites
-			}
+			id: account.id,
+			email: account.email,
+			name: account.name,
+			avatar: account.avatar,
+			bio: account.bio,
+			notificationNewComments: account.notificationNewComments,
+			notificationLikes: account.notificationLikes,
+			notificationNewTrackInFavorites:
+				account.notificationNewTrackInFavorites,
+			favorites: account.favorites.map(item => item.trackId),
+			likes: account.likes.map(item => item.trackId)
 		}
 	}
 

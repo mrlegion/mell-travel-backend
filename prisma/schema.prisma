@@ -15,7 +15,7 @@ model Account {
   password String
 
   name   String
-  avatar String @default("images/default-profile.png")
+  avatar String @default("https://i.pravatar.cc/150")
   bio    String
 
   notificationNewComments         Boolean @default(true) @map("notification_new_comments")
@@ -25,6 +25,7 @@ model Account {
   tracks    Track[]
   comments  Comment[]
   favorites Favorite[]
+  likes     Like[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -44,7 +45,25 @@ model Favorite {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  @@unique([accountId, trackId])
+  @@index([accountId])
+  @@index([trackId])
   @@map("favorites")
+}
+
+model Like {
+  id String @unique @default(nanoid())
+
+  account   Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  accountId String  @map("account_id")
+
+  track   Track  @relation(fields: [trackId], references: [id], onDelete: Cascade)
+  trackId String @map("track_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([accountId, trackId]) // Один пользователь может поставить лайк только один раз
+  @@map("likes")
 }
 
 model Track {
@@ -58,9 +77,9 @@ model Track {
   excerpt    String
   images     String[]
   date       DateTime
-  likes      String
-  lat        String
-  lng        String
+  likes      Int
+  lat        Float
+  lng        Float
   duration   String
   difficulty String
 
@@ -72,7 +91,9 @@ model Track {
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  likesList Like[]
 
+  @@index([accountId])
   @@map("tracks")
 }
 
@@ -91,5 +112,7 @@ model Comment {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  @@index([trackId]) // поиск комментариев к треку
+  @@index([accountId]) // поиск комментариев пользователя
   @@map("comments")
 }

@@ -4,6 +4,7 @@ import {
 	ArrayNotEmpty,
 	IsArray,
 	IsISO8601,
+	IsNumber,
 	IsString
 } from 'class-validator'
 
@@ -59,22 +60,22 @@ export class CreateTrackRequest {
 	public date: string
 
 	@ApiProperty({
-		example: '0'
+		example: 0
 	})
-	@IsString()
-	public likes: string
+	@IsNumber()
+	public likes: number
 
 	@ApiProperty({
-		example: '53.122294007642765'
+		example: 53.122294007642765
 	})
-	@IsString()
-	public lat: string
+	@IsNumber()
+	public lat: number
 
 	@ApiProperty({
-		example: '98.22550839888048'
+		example: 98.22550839888048
 	})
-	@IsString()
-	public lng: string
+	@IsNumber()
+	public lng: number
 
 	@ApiProperty({
 		example: '3 дня'

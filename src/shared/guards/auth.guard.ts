@@ -35,7 +35,7 @@ export class AuthGuard implements CanActivate {
 			throw new UnauthorizedException('Заголовок авторизации отсутствует')
 
 		if (!header.startsWith('Bearer '))
-			throw new UnauthorizedException('Недействительная авторизация')
+			throw new UnauthorizedException('Токен должен быть в заголовке')
 
 		return header.replace(/^Bearer\s+/i, '').trim()
 	}
