@@ -60,12 +60,6 @@ export class CreateTrackRequest {
 	public date: string
 
 	@ApiProperty({
-		example: 0
-	})
-	@IsNumber()
-	public likes: number
-
-	@ApiProperty({
 		example: 53.122294007642765
 	})
 	@IsNumber()
