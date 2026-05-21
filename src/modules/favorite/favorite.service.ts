@@ -6,6 +6,7 @@ import { TrackRepository } from '../../repositories/track/track.repository'
 
 import { ToggleFavoritesRequest } from './dto/toggle-favorites.request'
 
+
 @Injectable()
 export class FavoriteService {
 	public constructor(
@@ -77,10 +78,10 @@ export class FavoriteService {
 
 		if (existingFavoriteTrack) {
 			await this.favoritesRepository.delete(existingFavoriteTrack.id)
+			return { success: false }
 		} else {
 			await this.favoritesRepository.create(userId, trackId)
+			return { success: true }
 		}
-
-		return { success: true }
 	}
 }

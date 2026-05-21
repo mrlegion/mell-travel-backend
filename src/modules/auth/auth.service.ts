@@ -76,7 +76,7 @@ export class AuthService {
 			email,
 			name,
 			password: await hash(password),
-			avatar: 'images/account-default.png',
+			avatar: 'https://i.pravatar.cc/150',
 			bio: ''
 		})
 
