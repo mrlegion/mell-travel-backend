@@ -9,6 +9,7 @@ import { TrackModule } from './modules/track/track.module';
 import { ProfileModule } from './modules/profile/profile.module';
 import { LikeModule } from './modules/like/like.module';
 import { FavoriteModule } from './modules/favorite/favorite.module';
+import { FileModule } from './modules/file/file.module';
 
 @Module({
 	imports: [
@@ -20,7 +21,8 @@ import { FavoriteModule } from './modules/favorite/favorite.module';
 		TrackModule,
 		ProfileModule,
 		LikeModule,
-		FavoriteModule
+		FavoriteModule,
+		FileModule
 	]
 })
 export class AppModule {}

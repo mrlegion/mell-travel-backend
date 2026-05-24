@@ -1,19 +1,22 @@
 import {
 	Body,
 	Controller,
+	Delete,
 	Get,
 	HttpCode,
 	HttpStatus,
 	Param,
 	Post,
+	Put,
 	Query
 } from '@nestjs/common'
-import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger'
+import { ApiBearerAuth, ApiBody, ApiOperation } from '@nestjs/swagger'
 
 import { CurrentUser, Protected } from '../../shared/decorators'
 import { ToggleFavoritesRequest } from '../favorite/dto/toggle-favorites.request'
 
 import { CreateTrackRequest } from './dto/create-track.request'
+import { UpdateTrackRequest } from './dto/update-track.request'
 import { TrackService } from './track.service'
 
 @Controller('track')
@@ -178,5 +181,43 @@ export class TrackController {
 	@HttpCode(HttpStatus.OK)
 	public async getRegions() {
 		return this.trackService.getRegions()
+	}
+
+	// ============================================================
+	//   Обновление маршрута
+	// ============================================================
+	@ApiOperation({
+		summary: 'Обновление маршрута'
+	})
+	@ApiBearerAuth()
+	@ApiBody({
+		type: UpdateTrackRequest
+	})
+	@Protected()
+	@Put('/:id')
+	@HttpCode(HttpStatus.OK)
+	public async update(
+		@Body() data: UpdateTrackRequest,
+		@CurrentUser() userId: string,
+		@Param('id') trackId: string
+	) {
+		return this.trackService.update(userId, trackId, data)
+	}
+
+	// ============================================================
+	//   Удаление маршрута
+	// ============================================================
+	@ApiOperation({
+		summary: 'Удаление маршрута'
+	})
+	@ApiBearerAuth()
+	@Protected()
+	@Delete('/:id')
+	@HttpCode(HttpStatus.OK)
+	public async delete(
+		@CurrentUser() userId: string,
+		@Param('id') trackId: string
+	) {
+		return this.trackService.remove(userId, trackId)
 	}
 }

@@ -15,7 +15,7 @@ model Account {
   password String
 
   name   String
-  avatar String @default("https://i.pravatar.cc/150")
+  avatar String @default("/uploads/no-user-image.png")
   bio    String
 
   notificationNewComments         Boolean @default(true) @map("notification_new_comments")

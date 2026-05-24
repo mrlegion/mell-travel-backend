@@ -1,7 +1,8 @@
 import {
 	BadRequestException,
 	Injectable,
-	NotFoundException
+	NotFoundException,
+	UnauthorizedException
 } from '@nestjs/common'
 
 import { Track } from '../../../prisma/generated/client'
@@ -12,6 +13,7 @@ import { ToggleFavoritesRequest } from '../favorite/dto/toggle-favorites.request
 
 import { CreateTrackRequest } from './dto/create-track.request'
 import { IFilteredQuery } from './dto/filtered-track.query'
+import { UpdateTrackRequest } from './dto/update-track.request'
 
 @Injectable()
 export class TrackService {
@@ -156,5 +158,49 @@ export class TrackService {
 	// ============================================================
 	public async getById(trackId: string) {
 		return this.trackRepository.findById(trackId)
+	}
+
+	// ============================================================
+	//   Обновление маршрута
+	// ============================================================
+	public async update(
+		userId: string,
+		trackId: string,
+		data: UpdateTrackRequest
+	) {
+		const user = await this.accountRepository.findById(userId)
+		if (!user) throw new NotFoundException('Пользователь не найден')
+
+		const track = await this.trackRepository.findById(trackId)
+		if (!track) throw new NotFoundException('Маршрут не найден')
+
+		if (track.accountId !== user.id)
+			throw new UnauthorizedException(
+				'Маршрут не создан данным пользователем'
+			)
+
+		await this.trackRepository.update(track.id, data)
+
+		return true
+	}
+
+	// ============================================================
+	//   Удаление маршрута
+	// ============================================================
+	public async remove(userId: string, trackId: string) {
+		const user = await this.accountRepository.findById(userId)
+		if (!user) throw new NotFoundException('Пользователь не найден')
+
+		const track = await this.trackRepository.findById(trackId)
+		if (!track) throw new NotFoundException('Маршрут не найден')
+
+		if (track.accountId !== user.id)
+			throw new UnauthorizedException(
+				'Маршрут не создан данным пользователем'
+			)
+
+		await this.trackRepository.remove(track.id)
+
+		return true
 	}
 }

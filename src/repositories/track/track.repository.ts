@@ -1,7 +1,11 @@
 import { Injectable } from '@nestjs/common'
 
 import { Track } from '../../../prisma/generated/client'
-import { TrackCreateInput } from '../../../prisma/generated/models/Track'
+import {
+	TrackCreateInput,
+	TrackUpdateInput
+} from '../../../prisma/generated/models/Track'
+import { UpdateTrackRequest } from '../../modules/track/dto/update-track.request'
 import { PrismaService } from '../../services/prisma/prisma.service'
 
 @Injectable()
@@ -342,6 +346,25 @@ export class TrackRepository {
 			data: {
 				likes
 			}
+		})
+	}
+
+	// ============================================================
+	//   Обновление маршрута
+	// ============================================================
+	public async update(id: string, data: TrackUpdateInput) {
+		return this.prisma.track.update({
+			where: { id },
+			data
+		})
+	}
+
+	// ============================================================
+	//   Удаление маршрута
+	// ============================================================
+	public async remove(id: string) {
+		return this.prisma.track.delete({
+			where: { id }
 		})
 	}
 }

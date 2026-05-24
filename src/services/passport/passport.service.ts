@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common'
+import { BadRequestException, Global, Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { createHmac } from 'node:crypto'
 
