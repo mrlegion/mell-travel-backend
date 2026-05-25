@@ -1,4 +1,4 @@
-FROM node:20.19.6-alpine AS base
+FROM node:22.22.3-alpine AS base
 
 RUN apk add --no-cache libc6-compat
 
@@ -22,9 +22,9 @@ ENV NODE_ENV=production
 
 WORKDIR /app
 
-COPY --from=build /app/package.json /app/package-lock.json
+COPY --from=build /app/package.json ./
 
-RUN npm install --production
+RUN npm install
 
 COPY --from=build /app/dist ./dist
 
