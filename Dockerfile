@@ -22,9 +22,9 @@ ENV NODE_ENV=production
 
 WORKDIR /app
 
-COPY --from=build /app/package.json
+COPY --from=build /app/package.json /app/package-lock.json
 
-RUN npm install
+RUN npm install --production
 
 COPY --from=build /app/dist ./dist
 
