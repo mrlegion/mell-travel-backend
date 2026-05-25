@@ -27,6 +27,7 @@ COPY --from=build /app/package.json ./
 RUN npm install
 
 COPY --from=build /app/dist ./dist
+
 COPY --from=build /app/uploads ./uploads
 
 COPY --from=build /app/prisma/generated ./prisma/generated
