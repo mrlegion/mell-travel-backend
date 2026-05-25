@@ -1,23 +1,33 @@
-FROM node:24-alpine
+FROM node:24-alpine AS base
+
+RUN apk add --no-cache libc6-compat
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json package-lock.json ./
 
 RUN npm install
 
+FROM base AS build
+
 COPY . .
-
-RUN chmod +x wait-for-it.sh
-
-RUN npx prisma db push
 
 RUN npx prisma generate
 
-RUN npx prisma db seed
-
 RUN npm run build
 
-EXPOSE 4000
+FROM base AS production
 
-RUN npm run start
+ENV NODE_ENV=production
+
+WORKDIR /app
+
+COPY --from=build /app/package.json /app/package-lock.json
+
+RUN npm install --production
+
+COPY --from=build /app/dist ./dist
+
+COPY --from=build /app/prisma/generated ./prisma/generated
+
+CMD ["node", "dist/main"]
