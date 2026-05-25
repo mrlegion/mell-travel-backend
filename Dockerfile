@@ -30,4 +30,4 @@ COPY --from=build /app/dist ./dist
 
 COPY --from=build /app/prisma/generated ./prisma/generated
 
-CMD ["node", "dist/main"]
+CMD ["node", "dist/src/main"]
