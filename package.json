@@ -18,7 +18,9 @@
 		"test:cov": "^jest --coverage",
 		"test:debug": "^node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
 		"test:e2e": "^jest --config ./test/jest-e2e.json",
-		"prisma:seed": "prisma db seed"
+		"prisma:seed": "prisma db seed",
+		"secret:key": "node -e \"console.log(require('crypto').randomBytes(32).toString('hex'))\"",
+		"secret:file": "node -e \"const f = process.argv[1] || 'secret.key'; require('fs').writeFileSync(f, require('crypto').randomBytes(32).toString('hex')); console.log('Key saved to ' + f);\" --"
 	},
 	"prisma": {
 		"seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
