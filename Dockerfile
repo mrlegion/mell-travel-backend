@@ -24,7 +24,7 @@ WORKDIR /app
 
 COPY --from=build /app/package.json /app/package-lock.json
 
-RUN npm install --production
+RUN npm install
 
 COPY --from=build /app/dist ./dist
 
