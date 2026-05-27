@@ -179,6 +179,8 @@ export class TrackService {
 				'Маршрут не создан данным пользователем'
 			)
 
+		data.date = new Date(data.date).toISOString()
+
 		await this.trackRepository.update(track.id, data)
 
 		return true

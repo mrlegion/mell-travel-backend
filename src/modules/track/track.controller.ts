@@ -46,7 +46,7 @@ export class TrackController {
 	@Get('/filtered')
 	@HttpCode(HttpStatus.OK)
 	public async getFiltered(
-		@Query('search') searchTerm?: string,
+		@Query('searchTerm') searchTerm?: string,
 		@Query('region') region?: string,
 		@Query('tag') tag?: string,
 		@Query('sort') sortBy?: 'date' | 'likes'

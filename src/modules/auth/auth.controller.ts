@@ -69,7 +69,6 @@ export class AuthController {
 		@Res({ passthrough: true })
 		res: Response
 	) {
-		console.log('Запуск обновления токенов...')
 		const refreshToken = req.cookies[this.authService.REFRESH_TOKEN_NAME]
 
 		if (!refreshToken) {
