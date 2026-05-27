@@ -32,7 +32,7 @@ async function createUsers() {
 				email: 'maria.sokolova@example.com',
 				password: await hash('123456789'),
 				name: 'Мария Соколова',
-				avatar: '/uploads/profile/generated_user_004/profile.jpg',
+				avatar: 'https://api.mell-travel.ru/uploads/profile/generated_user_004/profile.jpg',
 				bio: 'Прошла более 3 000 км пешком по России. Специализируюсь на трекинге в горах и водных маршрутах. Верю, что самые красивые места — без асфальта.'
 			},
 			{
@@ -40,7 +40,7 @@ async function createUsers() {
 				email: 'dmitry.khramov@example.com',
 				password: await hash('123456789'),
 				name: 'Дмитрий Храмов',
-				avatar: '/uploads/profile/generated_user_005/profile.jpg',
+				avatar: 'https://api.mell-travel.ru/uploads/profile/generated_user_005/profile.jpg',
 				bio: 'Вело-путешественник, проехал более 15 000 км по России. Обожаю зимние маршруты и съёмку дикой природы. Моя цель — показать, что путешествовать можно в любую погоду.'
 			},
 			{
@@ -55,7 +55,7 @@ async function createUsers() {
 				email: 'olga.petrova@example.com',
 				password: await hash('123456789'),
 				name: 'Ольга Петрова',
-				avatar: '/uploads/profile/generated_user_007/profile.jpg',
+				avatar: 'https://api.mell-travel.ru/uploads/profile/generated_user_007/profile.jpg',
 				bio: 'Инструктор по водному туризму. Провожу сплавы по рекам Карелии и Кольского полуострова. Учу новичков чувствовать воду и управлять байдаркой.'
 			},
 			{
@@ -71,14 +71,14 @@ async function createUsers() {
 				password: await hash('123456789'),
 				name: 'Сергей Волков',
 				bio: 'Автопутешественник, объездил весь Алтай и Саяны. Считаю, что лучший способ увидеть Россию — за рулём.',
-				avatar: '/uploads/profile/generated_user_009/profile.jpg'
+				avatar: 'https://api.mell-travel.ru/uploads/profile/generated_user_009/profile.jpg'
 			},
 			{
 				id: 'generated_user_010',
 				email: 'elena.morozova@example.com',
 				password: await hash('123456789'),
 				name: 'Елена Морозова',
-				avatar: '/uploads/profile/generated_user_010/profile.jpg',
+				avatar: 'https://api.mell-travel.ru/uploads/profile/generated_user_010/profile.jpg',
 				bio: 'Эко-активистка, участница волонтёрских проектов по очистке Байкала. Люблю пешие походы и бережное отношение к природе.'
 			},
 			{
@@ -86,7 +86,7 @@ async function createUsers() {
 				email: 'pavel.novikov@example.com',
 				password: await hash('123456789'),
 				name: 'Павел Новиков',
-				avatar: '/uploads/profile/generated_user_011/profile.jpg',
+				avatar: 'https://api.mell-travel.ru/uploads/profile/generated_user_011/profile.jpg',
 				bio: 'Альпинист, вулканолог. Покорил все действующие вулканы Камчатки. Пишу статьи о безопасности в горах.'
 			},
 			{
@@ -94,7 +94,7 @@ async function createUsers() {
 				email: 'anna.vlasova@example.com',
 				password: await hash('123456789'),
 				name: 'Анна Власова',
-				avatar: '/uploads/profile/generated_user_012/profile.jpg',
+				avatar: 'https://api.mell-travel.ru/uploads/profile/generated_user_012/profile.jpg',
 				bio: 'Мастер спорта по водному туризму. Организую сплавы для команд и корпоративов. Учу работать в команде на воде.'
 			},
 			{
@@ -102,7 +102,7 @@ async function createUsers() {
 				email: 'mikhail.zaytsev@example.com',
 				password: await hash('123456789'),
 				name: 'Михаил Зайцев',
-				avatar: '/uploads/profile/generated_user_013/profile.jpg',
+				avatar: 'https://api.mell-travel.ru/uploads/profile/generated_user_013/profile.jpg',
 				bio: 'Горный гид, знаю Алтай от и до. Помогаю туристам выбирать безопасные маршруты и получать максимум удовольствия.'
 			}
 		]
@@ -123,9 +123,9 @@ async function createTracks() {
 				excerpt:
 					'Маршрут через перевал Кату-Ярык и Долину Чулышмана — 180 км пешком без связи. Опыт, который меняет взгляд на жизнь.',
 				images: [
-					'/uploads/tracks/generated_track_001/photo (1).jpg',
-					'/uploads/tracks/generated_track_001/photo (2).jpg',
-					'/uploads/tracks/generated_track_001/photo (3).jpg'
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_001/photo (1).jpg',
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_001/photo (2).jpg',
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_001/photo (3).jpg'
 				],
 				date: new Date('2025-08-14'),
 				likes: 142,
@@ -144,9 +144,9 @@ async function createTracks() {
 				excerpt:
 					'Зимний веломаршрут по льду Байкала — 250 км от Листвянки до Ольхона. Торосы, тишина и звёздное небо над самым глубоким озером планеты.',
 				images: [
-					'/uploads/tracks/generated_track_002/photo (1).jpg',
-					'/uploads/tracks/generated_track_002/photo (2).jpg',
-					'/uploads/tracks/generated_track_002/photo (3).jpg'
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_002/photo (1).jpg',
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_002/photo (2).jpg',
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_002/photo (3).jpg'
 				],
 				date: new Date('2025-03-20'),
 				likes: 218,
@@ -165,12 +165,9 @@ async function createTracks() {
 				excerpt:
 					'Восхождение на Авачинский вулкан, Долина Гейзеров и медвежья рыбалка. 12 дней на самом удалённом и удивительном полуострове России.',
 				images: [
-					'/uploads/tracks/generated_track_003/photo (1).jpeg',
-					'/uploads/tracks/generated_track_003/photo (1).jpg',
-					'/uploads/tracks/generated_track_003/photo (2).jpg',
-					'/uploads/tracks/generated_track_003/photo (3).jpg',
-					'/uploads/tracks/generated_track_003/photo (4).jpg',
-					'/uploads/tracks/generated_track_003/photo (5).jpg'
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_003/photo (3).jpg',
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_003/photo (4).jpg',
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_003/photo (5).jpg'
 				],
 				date: new Date('2025-07-05'),
 				likes: 305,
@@ -189,10 +186,10 @@ async function createTracks() {
 				excerpt:
 					'Байдарочный маршрут Суна–Воттовааре в Карелии. Водопад Кивач, скалы и удивительные белые ночи в 10 днях сплава.',
 				images: [
-					'/uploads/tracks/generated_track_004/photo (1).jpg',
-					'/uploads/tracks/generated_track_004/photo (2).jpg',
-					'/uploads/tracks/generated_track_004/photo (3).jpg',
-					'/uploads/tracks/generated_track_004/photo (4).jpg'
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_004/photo (1).jpg',
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_004/photo (2).jpg',
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_004/photo (3).jpg',
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_004/photo (4).jpg'
 				],
 				date: new Date('2025-06-18'),
 				likes: 89,
@@ -211,9 +208,9 @@ async function createTracks() {
 				excerpt:
 					'Кольцевой маршрут по Хибинам в условиях полярного дня. Горная арктическая тундра в 8 днях пешего путешествия.',
 				images: [
-					'/uploads/tracks/generated_track_005/photo (1).jpg',
-					'/uploads/tracks/generated_track_005/photo (2).jpg',
-					'/uploads/tracks/generated_track_005/photo (3).jpg'
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_005/photo (1).jpg',
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_005/photo (2).jpg',
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_005/photo (3).jpg'
 				],
 				date: new Date('2025-07-22'),
 				likes: 64,
@@ -232,10 +229,10 @@ async function createTracks() {
 				excerpt:
 					'Путешествие по Чуйскому тракту от Бийска до границы с Монголией. Марсианские пейзажи, петроглифы и палатки у реки.',
 				images: [
-					'/uploads/tracks/generated_track_006/photo (1).jpg',
-					'/uploads/tracks/generated_track_006/photo (2).jpg',
-					'/uploads/tracks/generated_track_006/photo (3).jpg',
-					'/uploads/tracks/generated_track_006/photo (4).jpg'
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_006/photo (1).jpg',
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_006/photo (2).jpg',
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_006/photo (3).jpg',
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_006/photo (4).jpg'
 				],
 				date: new Date('2025-07-30'),
 				likes: 112,
@@ -254,9 +251,9 @@ async function createTracks() {
 				excerpt:
 					'Поход по Большой Байкальской тропе от Листвянки до Больших Котов. 2 дня вдоль самого глубокого озера в мире.',
 				images: [
-					'/uploads/tracks/generated_track_007/photo (1).jpg',
-					'/uploads/tracks/generated_track_007/photo (2).jpg',
-					'/uploads/tracks/generated_track_007/photo (3).jpg'
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_007/photo (1).jpg',
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_007/photo (2).jpg',
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_007/photo (3).jpg'
 				],
 				date: new Date('2025-07-15'),
 				likes: 98,
@@ -275,9 +272,9 @@ async function createTracks() {
 				excerpt:
 					'Активный вулкан Мутновский: восхождение к кратеру с фумаролами и паровыми полями. 5-6 часов незабываемых впечатлений.',
 				images: [
-					'/uploads/tracks/generated_track_008/photo (1).jpeg',
-					'/uploads/tracks/generated_track_008/photo (1).jpg',
-					'/uploads/tracks/generated_track_008/photo (3).jpg'
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_008/photo (1).jpeg',
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_008/photo (1).jpg',
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_008/photo (3).jpg'
 				],
 				date: new Date('2025-08-20'),
 				likes: 156,
@@ -296,9 +293,9 @@ async function createTracks() {
 				excerpt:
 					'Сплав по реке Шуя на катамаранах. Пороги, ночёвки на берегу и белые ночи карельского лета.',
 				images: [
-					'/uploads/tracks/generated_track_009/photo (1).jpg',
-					'/uploads/tracks/generated_track_009/photo (2).jpg',
-					'/uploads/tracks/generated_track_009/photo (3).jpg'
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_009/photo (1).jpg',
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_009/photo (2).jpg',
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_009/photo (3).jpg'
 				],
 				date: new Date('2025-07-10'),
 				likes: 87,
@@ -317,9 +314,9 @@ async function createTracks() {
 				excerpt:
 					'Пеший поход к Телецкому озеру с восхождением на смотровую площадку. Идеальный маршрут для знакомства с Алтаем.',
 				images: [
-					'/uploads/tracks/generated_track_010/photo (1).jpg',
-					'/uploads/tracks/generated_track_010/photo (2).jpg',
-					'/uploads/tracks/generated_track_010/photo (3).jpg'
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_010/photo (1).JPG',
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_010/photo (2).jpg',
+					'https://api.mell-travel.ru/uploads/tracks/generated_track_010/photo (3).jpg'
 				],
 				date: new Date('2025-08-25'),
 				likes: 104,

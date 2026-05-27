@@ -4,18 +4,16 @@ import {
 	HttpCode,
 	HttpStatus,
 	Post,
+	Req,
 	Res,
-	UseFilters
+	UnauthorizedException
 } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { ApiOperation } from '@nestjs/swagger'
-import type { Response } from 'express'
-
-import { NotFoundExceptionFilter } from '../../shared/filters/not-found-exception.filter'
+import type { Request, Response } from 'express'
 
 import { AuthService } from './auth.service'
 import { LoginRequest } from './dto/login.request'
-import { RefreshRequest } from './dto/refresh.request'
 import { RegisterRequest } from './dto/register.request'
 
 @Controller('auth')
@@ -67,10 +65,19 @@ export class AuthController {
 	@Post('refresh')
 	@HttpCode(HttpStatus.OK)
 	public async refresh(
-		@Body() data: RefreshRequest,
-		@Res({ passthrough: true }) res: Response
+		@Req() req: Request,
+		@Res({ passthrough: true })
+		res: Response
 	) {
-		return this.authService.refresh(data, res)
+		console.log('Запуск обновления токенов...')
+		const refreshToken = req.cookies[this.authService.REFRESH_TOKEN_NAME]
+
+		if (!refreshToken) {
+			this.authService.removeRefreshTokenFromResponse(res)
+			throw new UnauthorizedException('Токен обновления не прошел')
+		}
+
+		return this.authService.refresh({ refreshToken }, res)
 	}
 
 	// ============================================================

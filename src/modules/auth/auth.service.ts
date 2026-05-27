@@ -19,6 +19,8 @@ import { RegisterResponse } from './dto/register.response'
 
 @Injectable()
 export class AuthService {
+	public REFRESH_TOKEN_NAME = 'refreshToken'
+
 	public constructor(
 		private readonly accountRepository: AccountRepository,
 		private readonly config: ConfigService,
@@ -118,10 +120,17 @@ export class AuthService {
 	}
 
 	// ============================================================
+	//   Удаление токена из Cookies
+	// ============================================================
+	public removeRefreshTokenFromResponse(res: Response) {
+		this.clearCookie(res)
+	}
+
+	// ============================================================
 	//   Очистка cookies
 	// ============================================================
 	private clearCookie(res: Response) {
-		res.cookie('refreshToken', '', {
+		res.cookie(this.REFRESH_TOKEN_NAME, '', {
 			httpOnly: true,
 			secure:
 				this.config.getOrThrow<string>('NODE_ENV') !== 'development',
@@ -135,7 +144,7 @@ export class AuthService {
 	//   Установка токена обновления в cookies
 	// ============================================================
 	private setCookie(res: Response, token: string) {
-		res.cookie('refreshToken', token, {
+		res.cookie(this.REFRESH_TOKEN_NAME, token, {
 			httpOnly: true,
 			secure:
 				this.config.getOrThrow<string>('NODE_ENV') !== 'development',
