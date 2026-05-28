@@ -10,11 +10,17 @@ import {
 	Put,
 	Query
 } from '@nestjs/common'
-import { ApiBearerAuth, ApiBody, ApiOperation } from '@nestjs/swagger'
+import {
+	ApiBearerAuth,
+	ApiBody,
+	ApiOperation,
+	ApiResponse
+} from '@nestjs/swagger'
 
 import { CurrentUser, Protected } from '../../shared/decorators'
 import { ToggleFavoritesRequest } from '../favorite/dto/toggle-favorites.request'
 
+import { AllTagsResponse } from './dto/all-tags.response'
 import { CreateTrackRequest } from './dto/create-track.request'
 import { UpdateTrackRequest } from './dto/update-track.request'
 import { TrackService } from './track.service'
@@ -219,5 +225,22 @@ export class TrackController {
 		@Param('id') trackId: string
 	) {
 		return this.trackService.remove(userId, trackId)
+	}
+
+	// ============================================================
+	//   Получение всех тэгов
+	// ============================================================
+	@ApiOperation({
+		summary: 'Получение всех тэгов'
+	})
+	@ApiResponse({
+		status: HttpStatus.OK,
+		type: AllTagsResponse,
+		description: 'Список всех уникальных тэгов'
+	})
+	@Get('/tags')
+	@HttpCode(HttpStatus.OK)
+	public async getAllTags() {
+		return this.trackService.getAllTags()
 	}
 }

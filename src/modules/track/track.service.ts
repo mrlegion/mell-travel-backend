@@ -11,6 +11,7 @@ import { FavoritesRepository } from '../../repositories/favorites/favorites.repo
 import { TrackRepository } from '../../repositories/track/track.repository'
 import { ToggleFavoritesRequest } from '../favorite/dto/toggle-favorites.request'
 
+import { AllTagsResponse } from './dto/all-tags.response'
 import { CreateTrackRequest } from './dto/create-track.request'
 import { IFilteredQuery } from './dto/filtered-track.query'
 import { UpdateTrackRequest } from './dto/update-track.request'
@@ -204,5 +205,13 @@ export class TrackService {
 		await this.trackRepository.remove(track.id)
 
 		return true
+	}
+
+	// ============================================================
+	//   Получение списка всех тэгов
+	// ============================================================
+	public async getAllTags(): Promise<AllTagsResponse> {
+		const tags = await this.trackRepository.getTags()
+		return { tags }
 	}
 }

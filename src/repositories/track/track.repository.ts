@@ -367,4 +367,19 @@ export class TrackRepository {
 			where: { id }
 		})
 	}
+
+	// ============================================================
+	//   Получение списка всех тэгов
+	// ============================================================
+	public async getTags() {
+		const tracks = await this.prisma.track.findMany({
+			select: {
+				tags: true
+			}
+		})
+
+		const allTags = tracks.flatMap(t => t.tags)
+
+		return [...new Set(allTags)]
+	}
 }
